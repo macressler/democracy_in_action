@@ -9,7 +9,6 @@ config/requirements.rb
 democracy_in_action.gemspec
 lib/democracy_in_action.rb
 lib/democracy_in_action/api.rb
-lib/democracy_in_action/config_rexml.rb
 lib/democracy_in_action/desc_parse.rb
 lib/democracy_in_action/result.rb
 lib/democracy_in_action/tables.rb
@@ -366,7 +365,6 @@ spec/fixtures/examples/workflow_field.xml
 spec/fixtures/examples/workflow_instance.xml
 spec/fixtures/examples/workflow_instance_task.xml
 spec/fixtures/examples/workflow_task.xml
-spec/fixtures/process.xml
 spec/fixtures/supporter.xml
 spec/fixtures/supporter_by_key.xml
 spec/fixtures/supporter_by_limit_1.xml
