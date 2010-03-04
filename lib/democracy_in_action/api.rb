@@ -151,7 +151,7 @@ module DemocracyInAction
         :get            => 'https://sandbox.salsalabs.com/api/getObjects.sjs',
         :save           => 'https://sandbox.salsalabs.com/save',
         :delete         => 'https://sandbox.salsalabs.com/api/delete',
-        :count          => 'https://sandbox.salsalabs.com/getCount.sjs',
+        :count          => 'https://sandbox.salsalabs.com/api/getCount.sjs',
         :email          => 'https://sandbox.salsalabs.com/email'
         },
       :salsa => { 
@@ -160,7 +160,7 @@ module DemocracyInAction
         :get            => 'https://salsa.democracyinaction.org/api/getObjects.sjs',
         :save           => 'https://salsa.democracyinaction.org/save',
         :delete         => 'https://salsa.democracyinaction.org/api/delete',
-        :count          => 'https://salsa.democracyinaction.org/getCount.sjs',
+        :count          => 'https://salsa.democracyinaction.org/api/getCount.sjs',
         :email          => 'https://salsa.democracyinaction.org/email'
         },
       :wiredforchange => { 
@@ -169,9 +169,13 @@ module DemocracyInAction
         :delete  => 'http://salsa.wiredforchange.com/dia/deleteEntry.jsp'
         },
       :org2 => { 
-        :get     => 'http://org2.democracyinaction.org/dia/api/get.jsp',
-        :save => 'http://org2.democracyinaction.org/dia/api/process.jsp',
-        :delete  => 'http://org2.democracyinaction.org/dia/api/delete.jsp'
+        :authenticate   => 'https://org2.democracyinaction.org/api/authenticate.sjs',
+        :get_by_key     => 'https://org2.democracyinaction.org/api/getObject.sjs',
+        :get            => 'https://org2.democracyinaction.org/api/getObjects.sjs',
+        :save           => 'https://org2.democracyinaction.org/save',
+        :delete         => 'https://org2.democracyinaction.org/api/delete',
+        :count          => 'https://org2.democracyinaction.org/api/getCount.sjs',
+        :email          => 'https://org2.democracyinaction.org/email'
         }
       }
 
@@ -316,7 +320,7 @@ module DemocracyInAction
     # Additional options are attributes which should be set on the record
     def save(options = {})
       options[:xml] = true
-      send_request(@urls[:save], options.merge(param_key(options))).strip[/key="(\d+)/, 2]
+      send_request(@urls[:save], options.merge(param_key(options))).strip[/key="(\d+)/, 1]
     end
 
     # Create a new record
