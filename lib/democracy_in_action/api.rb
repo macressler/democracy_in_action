@@ -349,9 +349,8 @@ module DemocracyInAction
     # Accepts a single integer argument or an array if called via @api.[_object type_].delete()
     #
     # Returns true if it works, nil otherwise.
-    def delete(*args)
-      options = param_key(args.shift)
-      body = send_request(@urls[:delete], options)
+    def delete(options={})
+      body = send_request(@urls[:delete], options.merge(param_key(options)))
     
       # if it contains '<success', it worked, otherwise a failure
       body.include?('<success')
