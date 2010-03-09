@@ -368,7 +368,7 @@ module DemocracyInAction
     # Tag an item via salsa API
     #
     # requires the following options :tag, :object, :key of the item to be tagged
-    def tag(options = {} )
+    def make_tag(options = {} )
       options[:xml] = true
       client.get(@urls[:tag], build_body(options)).body.content
 
