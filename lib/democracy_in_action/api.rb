@@ -528,7 +528,7 @@ module DemocracyInAction
   # the API with their original arguments.
 
   class TableProxy #:nodoc:
-    TABLE_PROXY_METHODS = [:get, :save, :delete, :columns, :count, :put, :post, :first, :all ]
+    TABLE_PROXY_METHODS = [:get, :save, :delete, :columns, :count, :put, :post, :first, :all, :make_tag ]
     TABLE_PROXY_METHODS.each { |method| undef_method( method ) if instance_methods.include?( method.to_s ) }
 
     def initialize(api, table_name)
