@@ -370,7 +370,7 @@ module DemocracyInAction
     # requires the following options :tag, :object, :key of the item to be tagged
     def make_tag(options = {} )
       options[:xml] = true
-      client.get(@urls[:tag], build_body(options)).body.content
+      body = send_request(@urls[:tag], options.merge(param_key(options)))
 
       # if it contains '<success', it worked, otherwise a failure
       return unless body.include?('<success')
