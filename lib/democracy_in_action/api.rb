@@ -175,7 +175,8 @@ module DemocracyInAction
         :save           => 'https://org2.democracyinaction.org/save',
         :delete         => 'https://org2.democracyinaction.org/api/delete',
         :count          => 'https://org2.democracyinaction.org/api/getCount.sjs',
-        :email          => 'https://org2.democracyinaction.org/email'
+        :email          => 'https://org2.democracyinaction.org/email',
+        :tag            => 'https://org2.democracyinaction.org/dia/processEditValues.jsp'
         }
       }
 
@@ -350,11 +351,41 @@ module DemocracyInAction
     #
     # Returns true if it works, nil otherwise.
     def delete(options={})
+      options[:xml] = true
       body = send_request(@urls[:delete], options.merge(param_key(options)))
     
       # if it contains '<success', it worked, otherwise a failure
       body.include?('<success')
     end
+
+    # Send a freeform email via salsa API
+    #
+    # requires the following options :to, :from, :body, :subject
+    def email(options = {} )
+      client.get(@urls[:email], build_body(options)).body.content
+    end
+
+    # Tag an item via salsa API
+    #
+    # requires the following options :tag, :object, :key of the item to be tagged
+    def tag(options = {} )
+      options[:xml] = true
+      client.get(@urls[:tag], build_body(options)).body.content
+
+      # if it contains '<success', it worked, otherwise a failure
+      return unless body.include?('<success')
+
+      tagged_object_key = body.strip[/key="(\d+)/, 1]
+      new_tag = tag.first :condition => "tag=#{options[:tag]}"
+      new_tag_data = tag_data.first :condition => [ "tag_KEY=#{new_tag.key}", "table_key=#{tagged_object_key}" ]
+      new_tag_data.key
+    end
+
+    # Returns an integer for the number of records specified.
+    #
+
+    # Returns an integer for the number of records specified.
+    #
 
     # Returns an integer for the number of records specified.
     #
