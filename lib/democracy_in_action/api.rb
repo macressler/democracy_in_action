@@ -259,6 +259,7 @@ module DemocracyInAction
 
     def authentication_request
       @client = HTTPClient.new
+      @client.verify_mode = OpenSSL::SSL::VERIFY_NONE
       @auth_response = @client.post(@urls[:authenticate],"email=#{username}&password=#{password}")
       @auth_response.body.content
     end
